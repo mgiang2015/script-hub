@@ -1,0 +1,46 @@
+# configs/staging.yaml
+# Staging environment overrides
+database:
+  host: "staging-db.company.com"
+  port: 5432
+  name: "ecommerce_staging"
+  username: "staging_user"
+  password: "${DB_PASSWORD}"  # Environment variable
+  ssl_mode: "require"
+  connection_pool_size: 10
+
+redis:
+  host: "staging-redis.company.com"
+  port: 6379
+  database: 0
+  password: "${REDIS_PASSWORD}"
+
+app:
+  debug: false
+  hot_reload: false
+
+logging:
+  level: "INFO"
+  console_output: false
+  file_path: "/var/log/ecommerce/app.log"
+
+external_apis:
+  payment_gateway:
+    url: "https://api.stripe.com"
+    api_key: "${STRIPE_API_KEY}"
+  
+  email_service:
+    url: "https://api.mailgun.com/v3/staging.company.com"
+    api_key: "${MAILGUN_API_KEY}"
+
+monitoring:
+  enabled: true
+  datadog_api_key: "${DATADOG_API_KEY}"
+  health_check_endpoint: "/health"
+
+cors:
+  allowed_origins: ["https://staging.company.com"]
+
+rate_limiting:
+  requests_per_minute: 200
+  burst_limit: 50

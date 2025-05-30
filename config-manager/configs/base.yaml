@@ -1,0 +1,27 @@
+# configs/base.yaml
+# Base configuration shared across all environments
+app:
+  name: "ecommerce-api"
+  version: "1.0.0"
+  timezone: "UTC"
+  session_timeout: 1800  # 30 minutes
+  
+logging:
+  level: "INFO"
+  format: "json"
+  max_file_size: "100MB"
+  retention_days: 30
+  
+security:
+  jwt_expiration: 3600  # 1 hour
+  password_min_length: 8
+  max_login_attempts: 5
+  
+features:
+  user_registration: true
+  email_notifications: true
+  analytics: true
+  
+rate_limiting:
+  requests_per_minute: 100
+  burst_limit: 20

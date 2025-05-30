@@ -1,0 +1,64 @@
+# configs/prod.yaml
+# Production environment overrides
+database:
+  host: "prod-db-cluster.company.com"
+  port: 5432
+  name: "ecommerce_prod"
+  username: "prod_user"
+  password: "${DB_PASSWORD}"
+  ssl_mode: "require"
+  connection_pool_size: 20
+  read_replicas:
+    - "prod-db-read-1.company.com"
+    - "prod-db-read-2.company.com"
+
+redis:
+  cluster_mode: true
+  nodes:
+    - "prod-redis-1.company.com:6379"
+    - "prod-redis-2.company.com:6379"
+    - "prod-redis-3.company.com:6379"
+  password: "${REDIS_PASSWORD}"
+
+app:
+  debug: false
+  hot_reload: false
+
+logging:
+  level: "WARN"
+  console_output: false
+  file_path: "/var/log/ecommerce/app.log"
+  structured_logging: true
+
+external_apis:
+  payment_gateway:
+    url: "https://api.stripe.com"
+    api_key: "${STRIPE_API_KEY}"
+    timeout: 30
+  
+  email_service:
+    url: "https://api.mailgun.com/v3/company.com"
+    api_key: "${MAILGUN_API_KEY}"
+    timeout: 10
+
+monitoring:
+  enabled: true
+  datadog_api_key: "${DATADOG_API_KEY}"
+  health_check_endpoint: "/health"
+  metrics_endpoint: "/metrics"
+  
+security:
+  jwt_expiration: 1800  # 30 minutes (shorter for prod)
+  max_login_attempts: 3  # Stricter for prod
+
+cors:
+  allowed_origins: ["https://company.com", "https://www.company.com"]
+
+rate_limiting:
+  requests_per_minute: 1000
+  burst_limit: 200
+
+backup:
+  enabled: true
+  schedule: "0 2 * * *"  # Daily at 2 AM
+  retention_days: 90

@@ -1,0 +1,36 @@
+# configs/dev.yaml
+# Development environment overrides
+database:
+  host: "localhost"
+  port: 5432
+  name: "ecommerce_dev"
+  username: "dev_user"
+  password: "dev_password"
+  ssl_mode: "disable"
+  connection_pool_size: 5
+
+redis:
+  host: "localhost"
+  port: 6379
+  database: 0
+  password: ""
+
+app:
+  debug: true
+  hot_reload: true
+
+logging:
+  level: "DEBUG"
+  console_output: true
+
+external_apis:
+  payment_gateway:
+    url: "https://sandbox-api.stripe.com"
+    api_key: "sk_test_123456789"
+  
+  email_service:
+    url: "https://api.mailgun.com/v3/sandbox123.mailgun.org"
+    api_key: "key-sandbox123456789"
+
+cors:
+  allowed_origins: ["http://localhost:3000", "http://localhost:8080"]
