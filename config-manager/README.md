@@ -5,7 +5,7 @@ Web applications usually need different  configurations for development, staging
 ## Support
 
 - Reads `.yaml` files as input configuration
-- Output `.env`, `config.json` and `docker-compose.env` files for each environment provided
+- Output `.env` and `config.json` files for each environment provided
 
 ## Features
 
